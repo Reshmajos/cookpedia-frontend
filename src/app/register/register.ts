@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { email } from '@angular/forms/signals';
 import { ApiService } from '../services/api-service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ registerForm:FormGroup
 fb = inject(FormBuilder)
 api = inject(ApiService)
 router = inject(Router)
+toaster = inject(ToastrService)
 
 constructor(){
   this.registerForm = this.fb.group({
@@ -33,19 +35,21 @@ register(){
     const password = this.registerForm.value.password
     this.api.registerAPI({username,email,password}).subscribe({
       next:(res:any)=>{
-        alert("User Registration successfull")
+        this.toaster.success("User Registration successfull")
         this.registerForm.reset()
+        setTimeout(()=>{
         this.router.navigateByUrl('/login')
+        },2000)
       },
       error:(reason:any)=>{
-        console.log(reason.error);
+        this.toaster.error(reason.error);
         this.registerForm.reset()
         this.router.navigateByUrl('/login')
         
       }
     })
   }else{
-    alert("invalid inputs")
+    this.toaster.warning("invalid inputs..")
   }
 }
 
