@@ -5,6 +5,7 @@ import { ApiService } from '../services/api-service';
 import { SearchPipe } from '../pipes/search-pipe';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipes',
@@ -20,6 +21,7 @@ export class Recipes {
   cuisineArray:any = signal([])
   mealtypeArray:any = signal([])
   api = inject(ApiService)
+  router = inject(Router)
 
   ngOnInit(){
     this.getAllRecipes()
@@ -49,6 +51,14 @@ export class Recipes {
 
 filterRecipe(key:string,value:string){
   this.allRecipes.set(this.dummyAllRecipes.filter((item:any)=>item[key]==value))
+}
+
+viewRecipe(recipeId:string){
+  if(sessionStorage.getItem("token")){
+this.router.navigateByUrl(`/recipes/${recipeId}/view`)
+  }else{
+    alert("please login to access recipe in details...")
+  }
 }
 
 }
