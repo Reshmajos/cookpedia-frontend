@@ -1,8 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
 
 @Component({
   selector: 'app-view-recipe',
@@ -17,14 +20,15 @@ export class ViewRecipe {
    api = inject(ApiService)
   activateRoute = inject(ActivatedRoute)
   recipeId:string = this.activateRoute.snapshot.params['id']
+  router = inject(Router)
 
   ngOnInit(){
-    this.getRecipe()
+    this.getRecipe(this.recipeId)
   }
 
 
-  getRecipe(){
-    this.api.viewRecipeAPI(this.recipeId).subscribe((res:any)=>{
+  getRecipe(recipeId:string){
+    this.api.viewRecipeAPI(recipeId).subscribe((res:any)=>{
       this.recipe.set(res)
     // call get related recipe api
       // console.log(this.recipe());
@@ -44,5 +48,37 @@ export class ViewRecipe {
       
     })
   }
+
+viewRelatedRecipeDetails(recipeId:string){
+  this.router.navigateByUrl(`/recipes/${recipeId}/view`)
+  this.getRecipe(recipeId)
+}
+
+downloadRecipe(){
+  this.api.addToDownloadAPI(this.recipeId,{name:this.recipe().name,cuisine:this.recipe().cuisine,image:this.recipe().image}).subscribe({
+    next:((res:any)=>{
+      console.log(res);
+      this.pdfRecipe()
+    }),
+    error:(reason:any)=>{
+      console.log(reason);
+      
+    }
+  })
+}
+
+
+// recipe pdf
+pdfRecipe(){
+  let pdf = new jsPDF()
+  let titleRow = ['Name','Cuisine','Servings','Ingredients','Instructions']
+  let bodyData = [this.recipe().name,this.recipe().cuisine,this.recipe().servings,this.recipe().ingredients,this.recipe().instructions]
+
+  autoTable(pdf,{
+    head:[titleRow],
+    body:[bodyData]
+  })
+  pdf.save(`${this.recipe().name}.pdf`)
+}
 
 }
