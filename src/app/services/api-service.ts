@@ -51,4 +51,28 @@ getRelatedRecipesAPI(cuisine:string){
 addToDownloadAPI(recipeId:string,reqBody:any){
   return this.http.post(`${this.server_url}/downloads/${recipeId}`,reqBody,this.appendToken())
 }
+
+// save - called view recipe component when save recipe btn clicked
+
+addToSaveRecipeAPI(recipeId:string,reqBody:any){
+  return this.http.post(`${this.server_url}/recipes/${recipeId}/save`,reqBody,this.appendToken())
 }
+
+// get user save recipe...get request from save recipe component when page loads
+
+getUserSaveRecipesAPI(){
+  return this.http.get(`${this.server_url}/recipe-collection`,this.appendToken())
+}
+
+// remove save recipe item -delete  from save recipe component when delete btn clicked 
+removeUserSaveRecipeItemAPI(recipeId:string){
+  return this.http.delete(`${this.server_url}/recipe-collection/${recipeId}`,this.appendToken())
+}
+
+// feedback form--post by contact component when submit btn clicked
+addFeedbackAPI(reqBody:any){
+  return this.http.post(`${this.server_url}/feedback`,reqBody)
+}
+
+}
+

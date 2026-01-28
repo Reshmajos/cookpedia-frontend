@@ -81,4 +81,18 @@ pdfRecipe(){
   pdf.save(`${this.recipe().name}.pdf`)
 }
 
+// save recipe
+saveRecipe(){
+  this.api.addToSaveRecipeAPI(this.recipeId,{name:this.recipe().name,image:this.recipe().image}).subscribe({
+    next:((res:any)=>{
+    alert(`'${res.name}' added to your Recipe Collection`)
+    }),
+    error:(reason:any)=>{
+      console.log(reason);
+      alert(reason.error)
+      
+    }
+  })
+}
+
 }
