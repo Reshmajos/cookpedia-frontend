@@ -48,16 +48,25 @@
     </div>
      </div>
     <div class="col-lg-6 p-5">
-      <div class="border shadow p-3 w-75 ms-5">
+      <form #feedbackForm="ngForm" (ngSubmit)="addFeedback()" class="border shadow p-3 w-75 ms-5">
         <h2>Client Testimony</h2>
         <div class="my-2 p-3 d-flex align-items-center justify-content-center flex-column">
-     <input class="form-control my-2 w-75" placeholder="Name" type="text">
-     <input class="form-control w-75 my-2" placeholder="E-mail" type="text">
-     <textarea placeholder="Message" class="form-control w-75"></textarea>
+     <input #username="ngModel" name="username" [(ngModel)]="name" class="form-control my-2 w-75" placeholder="Name" type="text" required pattern="[a-zA-Z]*">
+     @if (username.invalid && username.touched) {
+        <div class="mb-3 text-danger">*Invalid Name</div>
+     }
+     <input #mail ="ngModel" name="email" [(ngModel)]="email"  class="form-control w-75 my-2" placeholder="E-mail" type="email" email required>
+     @if (mail.invalid && mail.touched) {
+        <div class="mb-3 text-danger">*Invalid email</div>
+     }
+     <textarea #mess="ngModel" name="message" [(ngModel)]="message" placeholder="message" class="form-control w-75" required></textarea>
+     @if (mess.invalid && mess.touched) {
+        <div class="mb-3 text-danger">*Invalid message</div>
+     }
         </div>
-        <p>By Submitting,you'r agreeing the terms and condition of our website.We may use your details in our site.</p>
-        <button class="btn bg-success">submit</button>
-      </div>
+        <p class="text-secondary">By Submitting,you'r agreeing the terms and condition of our website.We may use your details in our site.</p>
+        <button [disabled] ="feedbackForm.invalid" type="submit" class="btn bg-success">submit</button>
+      </form>
     </div>
     </div>
     <div class="my-5">
