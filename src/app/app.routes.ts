@@ -9,8 +9,14 @@ import { UserCollection } from './user-collection/user-collection';
 import { UserProfile } from './user-profile/user-profile';
 import { ViewRecipe } from './view-recipe/view-recipe';
 import { Pnf } from './pnf/pnf';
+import { AdminModule } from './admin/admin-module';
 
 export const routes: Routes = [
+
+    // lazy load module
+    {
+          path:'admin', loadChildren:()=>import('./admin/admin-module').then(module=>module.AdminModule)
+    },
     // home
     {
         path:'',component:Home,title:"Home"

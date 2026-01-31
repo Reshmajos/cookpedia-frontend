@@ -79,6 +79,25 @@ getUserDownloadListAPI(){
   return this.http.get(`${this.server_url}/user-downloads`,this.appendToken())
 }
 
+// edit user profile : put request by profile when pic uploads
+editUserPictureAPI(reqBody:any){
+  return this.http.put(`${this.server_url}/user-edit`,reqBody,this.appendToken())
+}
+
+// feedback-approve : get by home page when it loads
+getApproveFeedbacksAPI(){
+  return this.http.get(`${this.server_url}/feedbacks-approve`)
+}
+
+// get all user list - get by admin users when page loads
+getUserListAPI(){
+  return this.http.get(`${this.server_url}/user-list`,this.appendToken())
+}
+
+// downloads
+getDownloadListAPI(){
+  return this.http.get(`${this.server_url}/downloads`,this.appendToken())
+}
 
 }
 

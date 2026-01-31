@@ -3,9 +3,9 @@
     <div style="height: 200px;" class="row bg-success"></div>
         <div class="p-1 shadow d-flex justify-content-center align-items-center" style="width: 220px; height: 220px; border-radius: 50%; margin-top: -110px;">
            <label for="upload">
-             <img style=" border-radius: 50%;" height="200px" width="200px" [src]="userImage" alt="">
+             <img style=" border-radius: 50%;" height="200px" width="200px" [src]="userImage()" alt="">
            </label>
-            <input id="upload" hidden type="file">
+            <input (change)="updateProfilePic($event)" id="upload" accept="image/*" hidden type="file">
         </div>
         <label style="margin-top: -40px; margin-left: 100px;" for="upload" class="btn bg-light">
             <i class="fa-solid fa-upload fa-2x text-success"></i>

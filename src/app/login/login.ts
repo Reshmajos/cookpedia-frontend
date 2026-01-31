@@ -38,9 +38,11 @@ login(){
         sessionStorage.setItem("user",JSON.stringify(res.user))
         alert("User login successfull")
         this.loginForm.reset()
-        setTimeout(()=>{
-        this.router.navigateByUrl('/login')
-        },2000)
+        if(res.user.role=="user"){
+          this.router.navigateByUrl('/')
+        }else{
+          this.router.navigateByUrl('/admin')
+        }
       },
       error:(reason:any)=>{
         alert(reason.error);
