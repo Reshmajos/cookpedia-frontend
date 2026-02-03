@@ -99,5 +99,16 @@ getDownloadListAPI(){
   return this.http.get(`${this.server_url}/downloads`,this.appendToken())
 }
 
+// get feedbacks-get by admin feedback when page loads
+getFeedbackListAPI(){
+  return this.http.get(`${this.server_url}/feedbacks`,this.appendToken())
+}
+
+// put by feedback when approve / reject btn clicked
+updateFeedbackStatusAPI(id:string,reqBody:any){
+  return this.http.put(`${this.server_url}/feedbacks/${id}`,reqBody,this.appendToken())
+}
+
+
 }
 
