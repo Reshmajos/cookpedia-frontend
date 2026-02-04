@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { RecipeModel } from '../admin/model/recipeModel';
 
 @Injectable({
   providedIn: 'root',
@@ -109,6 +110,21 @@ updateFeedbackStatusAPI(id:string,reqBody:any){
   return this.http.put(`${this.server_url}/feedbacks/${id}`,reqBody,this.appendToken())
 }
 
+// add recipe - post request by manage recipe component when add btn clicked
+addRecipeAPI(reqBody:RecipeModel){
+  return this.http.post(`${this.server_url}/recipes`,reqBody,this.appendToken())
+}
+
+// delete recipes - when delete btn clicked
+removeRecipeAPI(id:string){
+  return this.http.delete(`${this.server_url}/recipes/${id}`,this.appendToken())
+}
+
+// edit recipe - put request by manage recipe component when update btn clicked
+
+editRecipeAPI(id:string,reqBody:RecipeModel){
+  return this.http.put(`${this.server_url}/recipes/${id}`,reqBody,this.appendToken())
+}
 
 }
 
