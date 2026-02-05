@@ -25,6 +25,7 @@
 </div>
                 </div>
              </div>
+             <!-- blocks -->
              <div class="row my-5">
                 <!-- box -->
                  <div class="col-lg-3">
@@ -57,13 +58,30 @@
                  <div class="col-lg-3">
                     <div style="background-color: rgba(206, 75, 206, 0.8);" class="d-flex justify-content-center align-items-center p-2 rounded text-light">
                         <i class="fa-solid fa-message fs-1"></i>
-                        <div class="ms-4">
+                        <div class="ms-5">
                             <h4>Notification</h4>
-                            <h6>You have <a routerLink="/admin/feedbacks"> {{getNotificationCount()}} </a>new feedbacks</h6>
+                            <h6>You have <a routerLink="/admin/feedbacks"> {{notificationCount()}} </a>new feedbacks</h6>
                         </div>
                     </div>
                  </div>
 
+             </div>
+             <div class="row">
+                <div class="col-lg-7">
+                    <!-- chart -->
+                     <highcharts-chart
+      [options]="chartOptions"
+      class="chart"
+    />
+                </div>
+                <div class="col-lg-5">
+                    <!-- calendar -->
+                    <div class="d-flex align-items-center justify-content-center">
+                         <mat-card class="demo-inline-calendar-card">
+  <mat-calendar [(selected)]="selected"></mat-calendar>
+</mat-card>
+                    </div>
+                </div>
              </div>
         </div>
     </div>

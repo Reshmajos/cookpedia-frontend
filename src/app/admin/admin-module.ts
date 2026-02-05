@@ -11,6 +11,14 @@ import { AdminManagerecipe } from './admin-managerecipe/admin-managerecipe';
 import { AdminSidebar } from './admin-sidebar/admin-sidebar';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../pipes/search-pipe';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
+
+import { HighchartsChartComponent } from 'highcharts-angular';
+
+
 
 
 @NgModule({
@@ -27,7 +35,15 @@ import { SearchPipe } from '../pipes/search-pipe';
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    SearchPipe
+    SearchPipe,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatCardModule,
+    HighchartsChartComponent
+  ],
+  providers:[
+    provideNativeDateAdapter(),
+  
   ]
 })
 export class AdminModule { }
